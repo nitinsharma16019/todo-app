@@ -1,0 +1,20 @@
+header{
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05);
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.profile ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.profile ul li{
+    margin-right: 16px;
+}
+.profile ul li:last-child{
+    margin-right: 0px;
+}

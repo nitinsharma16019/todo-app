@@ -1,0 +1,31 @@
+.tasks-ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.tasks-ul li{
+    margin-right: 24px;
+}
+.tasks-ul li:last-child{
+    margin-right: 0px;
+}
+.tasks-ul li a{
+    padding: 8px;
+    cursor: pointer;
+}
+
+.active{
+    color: #06c;
+    border-bottom: 2px solid #222;
+    pointer-events: none;
+}
+
+.modal{background: rgba(0,0,0, .5)}
+.close{
+    border: none;
+    background: none;
+    font-size: 32px;
+}

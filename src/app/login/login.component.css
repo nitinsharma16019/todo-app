@@ -1,0 +1,21 @@
+.login-section{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-card{
+    width: 450px;
+}
+.card-header{
+    background-color: #222;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+}
+.card-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

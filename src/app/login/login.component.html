@@ -1,0 +1,66 @@
+<div class="container-fluid login-section">
+    @if(!displaySignUp){
+    <div class="card login-card shadow-lg">
+        <!---card haeder-->
+        <div class="card-header p-3">
+            Sign In
+        </div>
+        <!---card body--->
+        <div class="card-body">
+            <form [formGroup]="loginForm">
+                <div class="row">
+                    <div class="col-xl-12 mb-3">
+                        <input type="email" class="form-control" formControlName="email" placeholder="Enter Email">
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Enter password" formControlName="password">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!---card-footer--->
+        <div class="card-footer">
+            <p>Don't have an Account? <a style="cursor: pointer;color: #06c;" (click)="onSignUpLink(true)">Sign Up</a></p>
+            <button class="btn btn-primary float-end" (click)="onSignIn()" [disabled]="!loginForm.valid">Sign In</button>
+        </div>
+    </div>
+}
+    @if(displaySignUp){
+        <div class="card login-card shadow-lg">
+            <!---card haeder-->
+            <div class="card-header p-3">
+                Sign Up
+            </div>
+            <!---card body--->
+            <div class="card-body">
+                <form [formGroup]="signUpForm">
+                    <div class="row">
+                        <div class="col-xl-12 mb-3">
+                            <input type="email" class="form-control" formControlName="email" placeholder="Enter Email">
+                        </div>
+                        <div class="col-xl-12 mb-3">
+                            <select class="form-control" formControlName="role">
+                                <option disabled value="" selected>Select Role</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="MANAGER">MANAGER</option>
+                                <option value="DEVELOPER">DEVELOPER</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Enter password" formControlName="password">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!---card-footer--->
+            <div class="card-footer">
+                <p>Don't have an Account? <a style="cursor: pointer;color: #06c;" (click)="onSignUpLink(false)">Sign In</a></p>
+                <button class="btn btn-primary float-end" (click)="onSignUp()" [disabled]="!signUpForm.valid">Sign Up</button>
+            </div>
+        </div>
+    }
+</div>

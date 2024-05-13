@@ -1,0 +1,134 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="row pt-5">
+        <div class="col-12">
+            <ul class="tasks-ul">
+                @if(!(_gs.userRole==='DEVELOPER')){
+                <li [ngClass]="{'active':activeTab==='Awaited'}">
+                    <a (click)="onTab('Awaited')">
+                        Awaited tasks
+                    </a>
+                </li>
+                }
+                <li [ngClass]="{'active':activeTab==='Todo'}">
+                    <a (click)="onTab('Todo')">
+                        Todo tasks
+                    </a>
+                </li>
+                <li [ngClass]="{'active':activeTab==='Done'}">
+                    <a (click)="onTab('Done')">
+                        Done tasks
+                    </a>
+                </li>
+                @if(_gs.userRole==='MANAGER'){
+                <li [ngClass]="{'active':activeTab==='Input'}">
+                    <a (click)="onTab('Input')">
+                        Input sections
+                    </a>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+    @if(!(activeTab==='Input')){
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Task Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(task of tasksList;track task.taskId){
+                    <tr>
+                        <td>{{task?.taskId}}</td>
+                        <td>{{task?.title}}</td>
+                        <td>{{task?.description}}</td>
+                        <td>{{task?.status}}</td>
+                        <td>
+                            @if(!(_gs.userRole==='MANAGER')){
+                            <button class="btn btn-sm btn-primary" (click)="openEditModal(task)"><i
+                                    class="bi bi-pencil-square"></i></button>
+                            }
+                            @if(_gs.userRole==='ADMIN'){
+                            <button class="btn btn-sm btn-danger ms-3" (click)="onDelete(task.taskId)"><i
+                                    class="bi bi-trash"></i></button>
+                            }
+                        </td>
+                    </tr>
+                    }
+                    @empty{
+                    <p>No tasks to show...</p>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+    @if(activeTab==='Input' && _gs.userRole==='MANAGER'){
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <button class="btn btn-primary" (click)="openModal()">Add Task</button>
+        </div>
+    </div>
+    }
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between align-items-center">
+                @if(!isEdit){
+                <h4 class="modal-title">Add Task</h4>
+                }
+                @if(isEdit){
+                <h4 class="modal-title">Update Task</h4>
+                }
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="taskForm">
+                    <div class="form-group mb-3">
+                        <input type="number" class="form-control" placeholder="Task Id" formControlName="taskId">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Title" formControlName="title">
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea rows="5" class="form-control" placeholder="Description"
+                            formControlName="description"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <select class="form-control" formControlName="status">
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Awaited">Awaited</option>
+                            <option value="Todo">Todo</option>
+                            <option value="Done">Done</option>
+                            <option value="Denied">Denied</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                @if(!isEdit){
+                <button class="btn btn-primary float-end" (click)="onAddTask()"
+                    [disabled]="!taskForm.valid">Add</button>
+                }
+                @if(isEdit){
+                <button class="btn btn-primary float-end" (click)="onUpdateTask()"
+                    [disabled]="!taskForm.valid">Update</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
